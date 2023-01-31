@@ -64,6 +64,7 @@ jobs:
             echo "Version in rust-toolchain.toml is not in use."
             exit 1
           fi
+        shell: bash
       - run: cargo init . --bin --name CI
       - run: cargo add syn@1
       - run: cargo check
