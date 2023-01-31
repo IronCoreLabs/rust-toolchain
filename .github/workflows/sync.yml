@@ -8,5 +8,5 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - uses: imba-tjd/rebase-upstream-action@master

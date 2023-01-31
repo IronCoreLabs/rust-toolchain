@@ -27,7 +27,7 @@ the nightly Rust toolchain, while "IronCoreLabs/rust-toolchain@1.42.0" pulls in
 ## Toolchain File
 
 The [Rust toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) is supported.
-If present it will be used to populate `toolchain`, `components` and `targets` parameters. If those parameters are explicitly set as inputs to the action, they will take precedence over the values in the toolchain file. To use only the toolchain file for parameters, pass no inputs and set the @rev to @master.
+If present it will be used to populate `toolchain`, `components` and `targets` parameters. If those parameters are explicitly set as inputs to the action, they will take precedence over the values in the toolchain file. To use only the toolchain file for parameters, pass no inputs and set the @rev to @main.
 
 ## Inputs
 
@@ -43,7 +43,7 @@ All inputs are optional.
   <td>
     Rustup toolchain specifier e.g. <code>stable</code>, <code>nightly</code>, <code>1.42.0</code>, <code>nightly-2022-01-01</code>.
     <b>Important: the default is to match the @rev as described above.</b>
-    When passing an explicit <code>toolchain</code> as an input instead of @rev, you'll want to use "IronCoreLabs/rust-toolchain@master" as the revision of the action.
+    When passing an explicit <code>toolchain</code> as an input instead of @rev, you'll want to use "IronCoreLabs/rust-toolchain@main" as the revision of the action.
   </td>
 </tr>
 <tr>
@@ -83,7 +83,7 @@ compiler support.
 ```yaml
      # Installs the most recent stable toolchain as of the specified time
      # offset, which may be written in years, months, weeks, or days.
-  - uses: IronCoreLabs/rust-toolchain@master
+  - uses: IronCoreLabs/rust-toolchain@main
     with:
       toolchain: stable 18 months ago
 ```
@@ -91,7 +91,7 @@ compiler support.
 ```yaml
      # Installs the stable toolchain which preceded the most recent one by
      # the specified number of minor versions.
-  - uses: IronCoreLabs/rust-toolchain@master
+  - uses: IronCoreLabs/rust-toolchain@main
     with:
       toolchain: stable minus 8 releases
 ```
