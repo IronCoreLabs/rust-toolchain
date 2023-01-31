@@ -44,7 +44,7 @@ jobs:
       - run: cargo check
         if: matrix.rust == 'nightly' || matrix.rust == 'beta' || matrix.rust == 'stable'
   install-toolchain:
-    name: Rust ${{matrix.rust}} on ${{matrix.os == 'ubuntu' && 'Linux' || matrix.os == 'macos' && 'macOS' || matrix.os == 'windows' && 'Windows' || '???'}}
+    name: rust-toolchain.toml on ${{matrix.os == 'ubuntu' && 'Linux' || matrix.os == 'macos' && 'macOS' || matrix.os == 'windows' && 'Windows' || '???'}}
     runs-on: ${{matrix.os}}-latest
     strategy:
       fail-fast: false
@@ -59,7 +59,11 @@ jobs:
         id: toolchain
       - name: echo ${{'${{steps.toolchain.outputs.cachekey}}'}}
         run: echo '${{steps.toolchain.outputs.cachekey}}'
-      - run: rustc --version
+      - run: |
+          if ! [[ $(rustc --version) =~ "1.64.0" ]]; then
+            echo "Version in rust-toolchain.toml is not in use."
+            exit 1
+          fi
       - run: cargo init . --bin --name CI
       - run: cargo add syn@1
       - run: cargo check
