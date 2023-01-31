@@ -43,3 +43,23 @@ jobs:
         if: matrix.rust == 'nightly' || matrix.rust == 'beta' || matrix.rust == 'stable'
       - run: cargo check
         if: matrix.rust == 'nightly' || matrix.rust == 'beta' || matrix.rust == 'stable'
+  install-toolchain:
+    name: Rust ${{matrix.rust}} on ${{matrix.os == 'ubuntu' && 'Linux' || matrix.os == 'macos' && 'macOS' || matrix.os == 'windows' && 'Windows' || '???'}}
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos, windows]
+    timeout-minutes: 45
+    steps:
+    #change to trigger pr to trigger ci
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: Run dtolnay/rust-toolchain
+        id: toolchain
+      - name: echo ${{'${{steps.toolchain.outputs.cachekey}}'}}
+        run: echo '${{steps.toolchain.outputs.cachekey}}'
+      - run: rustc --version
+      - run: cargo init . --bin --name CI
+      - run: cargo add syn@1
+      - run: cargo check
