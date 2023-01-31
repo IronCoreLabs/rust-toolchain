@@ -34,7 +34,12 @@ runs:
       run: |
         # once https://github.com/mikefarah/yq/pull/1439 is merged, the yq already on the system will have toml support
         pip3 install yq
-        TOML_FILE=$(ls rust-toolchain.toml || ls rust-toolchain)
+        for F in rust-toolchain.toml rust-toolchain ; do
+          if [ -f "$F" ] ; then
+            TOML_FILE="$F"
+            break
+          fi
+        done
         if [ -z "$TOML_FILE" ]; then
           echo "rust-toolchain{.toml} not found, expecting explicit inputs"
           exit 0
