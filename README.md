@@ -3,8 +3,6 @@
 This GitHub Action installs a Rust toolchain using rustup. It is designed for
 one-line concise usage and good defaults.
 
-<br>
-
 ## Example workflow
 
 ```yaml
@@ -58,8 +56,6 @@ All inputs are optional.
 </tr>
 </table>
 
-<br>
-
 ## Outputs
 
 <table>
@@ -70,7 +66,7 @@ All inputs are optional.
 <tr>
   <td><code>toolchain</code></td>
   <td>
-    The parsed toolchain that was installed by this action.
+    Rustup's name for the selected version of the toolchain. "1.62.0"
   </td>
 </tr>
 <tr>
@@ -78,8 +74,6 @@ All inputs are optional.
   <td>A short hash of the rustc version, appropriate for use as a cache key. ex "20220627a831"</td>
 </tr>
 </table>
-
-<br>
 
 ## Toolchain expressions
 
@@ -101,8 +95,6 @@ compiler support.
     with:
       toolchain: stable minus 8 releases
 ```
-
-<br>
 
 ## License
 
