@@ -102,6 +102,11 @@ runs:
     - run: rustup default ${{steps.parse.outputs.toolchain}}
       shell: bash
 
+    # set an override. whatever toolchain we resolved to above is the one we want ot ensure we use
+    # without this the toolchain file will always take precedence
+    - run: rustup override set ${{steps.parse.outputs.toolchain}}
+      shell: bash
+
     - id: rustc-version
       run: |
         : create cachekey
