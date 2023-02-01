@@ -60,7 +60,8 @@ jobs:
       - name: echo ${{'${{steps.toolchain.outputs.cachekey}}'}}
         run: echo '${{steps.toolchain.outputs.cachekey}}'
       - run: |
-          if ! [[ $(rustc --version) =~ "1.64.0" ]]; then
+          pip3 install yq
+          if ! [[ $(rustc --version) =~ "$(tomlq -r '.toolchain.channel | select(. != null)' rust-toolchain.toml)" ]]; then
             echo "Version in rust-toolchain.toml is not in use."
             exit 1
           fi
