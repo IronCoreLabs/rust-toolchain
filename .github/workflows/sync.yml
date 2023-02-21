@@ -1,4 +1,4 @@
-name: Rebase Upstream
+name: Sync Upstream
 on:
   schedule:
   - cron: "0 0 * * 0"  # run once a week
@@ -12,7 +12,7 @@ jobs:
       with:
         ref: main
         fetch-depth: 0
-    - uses: exions/merge-upstream@1
+    - uses: exions/merge-upstream@v1
       with:
         upstream: dtolnay/rust-toolchain
         upstream-branch: master
