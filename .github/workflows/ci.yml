@@ -26,6 +26,10 @@ jobs:
     steps:
     #change to trigger pr to trigger ci
       - uses: actions/checkout@v3
+      # install yq manually if on Windows
+      - if: matrix.os == 'windows'
+        run: go install github.com/mikefarah/yq/v4@latest
+        shell: bash
       - uses: ./
         name: Run dtolnay/rust-toolchain${{contains(matrix.rust, ' ') && ' for ' || '@'}}${{matrix.rust}}
         id: toolchain
@@ -63,8 +67,7 @@ jobs:
       - name: Confirm version matches toolchain file
         run: |
           set -x
-          pip3 install yq
-          if ! [[ $(rustc --version) =~ "$(tomlq -r '.toolchain.channel | select(. != null)' rust-toolchain.toml)" ]]; then
+          if ! [[ $(rustc --version) =~ "$(yq -oy '.toolchain.channel | select(. != null)' rust-toolchain.toml)" ]]; then
             echo "Version in rust-toolchain.toml is not in use."
             exit 1
           fi
