@@ -30,8 +30,8 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: install yq if on windows
-      if: ${{ runner.os == 'Windows' }}
+    # action no-ops if yq is found
+    - name: install yq
       uses: dcarbone/install-yq-action@v1.1.1
     - id: extract-toml-values
       run: |
