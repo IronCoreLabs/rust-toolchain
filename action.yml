@@ -30,7 +30,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - if: runner.os == "Windows"
+    - if: ${{ runner.os == "Windows" }}
       uses: chrisdickinson/setup-yq@v1.0.1
       with:
         yq-version: 4.43.1
