@@ -30,14 +30,13 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: install yq if on windows
+      if: ${{ runner.os == 'Windows' }}
+      uses: chrisdickinson/setup-yq@v1.0.1
+      with:
+        yq-version: 4.43.1
     - id: extract-toml-values
       run: |
-        # install yq manually on windows
-        if [ "$RUNNER_OS" == "Windows" ] ; then
-          go install github.com/mikefarah/yq/v4@latest
-          echo "go binary in $GOBIN"
-          export PATH="$GOBIN:$PATH"
-        fi
         for F in rust-toolchain.toml rust-toolchain ; do
           if [ -f "$F" ] ; then
             TOML_FILE="$F"
