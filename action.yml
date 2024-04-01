@@ -32,9 +32,7 @@ runs:
   steps:
     - name: install yq if on windows
       if: ${{ runner.os == 'Windows' }}
-      uses: chrisdickinson/setup-yq@v1.0.1
-      with:
-        yq-version: 4.43.1
+      uses: dcarbone/install-yq-action@v1.1.1
     - id: extract-toml-values
       run: |
         for F in rust-toolchain.toml rust-toolchain ; do
