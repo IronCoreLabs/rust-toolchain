@@ -32,8 +32,6 @@ runs:
   steps:
     - id: extract-toml-values
       run: |
-        # once https://github.com/mikefarah/yq/pull/1439 is merged, the yq already on the system will have toml support
-        pip3 install yq
         for F in rust-toolchain.toml rust-toolchain ; do
           if [ -f "$F" ] ; then
             TOML_FILE="$F"
