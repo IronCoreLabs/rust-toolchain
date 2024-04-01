@@ -42,15 +42,15 @@ runs:
           echo "rust-toolchain{.toml} not found, expecting explicit inputs"
           exit 0
         fi
-        TOML_TOOLCHAIN=$(tomlq -r '.toolchain.channel | select(. != null)' $TOML_FILE)
+        TOML_TOOLCHAIN=$(yq -oy '.toolchain.channel | select(. != null)' $TOML_FILE)
         if [ -n "$TOML_TOOLCHAIN" ]; then
           echo "toml-toolchain=$TOML_TOOLCHAIN" >> $GITHUB_OUTPUT
         fi
-        TOML_TARGETS=$(tomlq -r '.toolchain.targets | select(. != null) | @csv' $TOML_FILE)
+        TOML_TARGETS=$(yq -oy '.toolchain.targets | select(. != null) | @csv' $TOML_FILE)
         if [ -n "$TOML_TARGETS" ]; then
           echo "toml-targets=$TOML_TARGETS" >> $GITHUB_OUTPUT
         fi
-        TOML_COMPONENTS=$(tomlq -r '.toolchain.components | select(. != null) | @csv' $TOML_FILE)
+        TOML_COMPONENTS=$(yq -oy '.toolchain.components | select(. != null) | @csv' $TOML_FILE)
         if [ -n "$TOML_COMPONENTS" ]; then
           echo "toml-components=$TOML_COMPONENTS" >> $GITHUB_OUTPUT
         fi
