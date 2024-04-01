@@ -26,10 +26,6 @@ jobs:
     steps:
     #change to trigger pr to trigger ci
       - uses: actions/checkout@v3
-      # install yq manually if on Windows
-      - if: matrix.os == 'windows'
-        run: go install github.com/mikefarah/yq/v4@latest
-        shell: bash
       - uses: ./
         name: Run dtolnay/rust-toolchain${{contains(matrix.rust, ' ') && ' for ' || '@'}}${{matrix.rust}}
         id: toolchain
