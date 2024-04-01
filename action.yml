@@ -35,7 +35,8 @@ runs:
         # install yq manually on windows
         if [ "$RUNNER_OS" == "Windows" ] ; then
           go install github.com/mikefarah/yq/v4@latest
-          export PATH="$GOPATH/bin:$PATH"
+          echo "go binary in $GOBIN"
+          export PATH="$GOBIN:$PATH"
         fi
         for F in rust-toolchain.toml rust-toolchain ; do
           if [ -f "$F" ] ; then
