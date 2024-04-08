@@ -14,7 +14,7 @@ jobs:
     name: cargo test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: IronCoreLabs/rust-toolchain@v1
       - run: cargo test --all-features
 ```
