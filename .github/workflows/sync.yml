@@ -12,10 +12,18 @@ jobs:
       with:
         ref: main
         fetch-depth: 0
-    - uses: exions/merge-upstream@v1
+    - name: Merge from upstream repo
+      uses: discdiver/merge-from-upstream-repo@v0.0.9
       with:
+        useremail: ops@ironcorelabs.com
+        username: leeroy-travis
         upstream: dtolnay/rust-toolchain
         upstream-branch: master
         branch: main
+    # - uses: exions/merge-upstream@v1
+    #   with:
+    #     upstream: dtolnay/rust-toolchain
+    #     upstream-branch: master
+    #     branch: main
 
 
