@@ -18,6 +18,10 @@ inputs:
   components:
     description: Comma-separated list of components to be additionally installed
     required: false
+  working-directory:
+    description: Directory containing the project's `rust-toolchain.toml` (or `rust-toolchain`) file. Also the directory the rustup override is registered against. Defaults to the runner workspace root.
+    required: false
+    default: "."
 
 outputs:
   cachekey:
@@ -34,6 +38,7 @@ runs:
     - name: install yq
       uses: dcarbone/install-yq-action@v1.1.1
     - id: extract-toml-values
+      working-directory: ${{ inputs.working-directory }}
       run: |
         for F in rust-toolchain.toml rust-toolchain ; do
           if [ -f "$F" ] ; then
@@ -106,6 +111,7 @@ runs:
     # set an override. whatever toolchain we resolved to above is the one we want ot ensure we use
     # without this the toolchain file will always take precedence
     - run: rustup override set ${{steps.parse.outputs.toolchain}}
+      working-directory: ${{ inputs.working-directory }}
       shell: bash
 
     - id: rustc-version
